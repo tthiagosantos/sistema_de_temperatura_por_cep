@@ -1,0 +1,10 @@
+### SERVICO A
+POST http://localhost:8081/cep
+Content-Type: application/json
+
+{ "cep": "29902555" }
+
+
+### SERVICO B
+GET http://localhost:8082/weather?cep=29902555
+Content-Type: application/json
