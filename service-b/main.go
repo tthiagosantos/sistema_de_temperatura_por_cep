@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	url2 "net/url"
 	"os"
 	"regexp"
 	"time"
@@ -122,7 +123,8 @@ func fetchTemperatureCelsius(ctx context.Context, city string) (float64, error) 
 	ctx, span := tracer.Start(ctx, "fetchTemperatureCelsius")
 	defer span.End()
 
-	url := fmt.Sprintf("https://api.weatherapi.com/v1/current.json?key=%s&q=%s", weatherAPIKey, city)
+	url := fmt.Sprintf("https://api.weatherapi.com/v1/current.json?key=%s&q=%s", weatherAPIKey, url2.QueryEscape(city))
+
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return 0, err
